@@ -90,24 +90,6 @@ const PRODUCTS = [
             heart: ['Royal Vanilla', 'Jasmine Bloom', 'Cashmere'],
             base: ['White Musk', 'Precious Woods', 'Tonka Bean']
         }
-    },
-    {
-        id: 'attar-sultan',
-        name: 'Attar Sultan',
-        category: 'unisex',
-        categoryName: 'Unisex Collection',
-        price: 2200,
-        image: 'attar.jpeg',
-        rating: 4.9,
-        reviews: 88,
-        tag: 'PURE ESSENCE',
-        subtitle: 'Traditional Concentrated Oriental Perfume Oil',
-        description: 'Pure, alcohol-free concentrated perfume oil (Attar) hand-blended with ancient oriental spices, Taif rose, and precious aged oud. Long-lasting scent experience.',
-        notes: {
-            top: ['Taif Rose', 'Bergamot', 'Saffron'],
-            heart: ['Frankincense', 'Myrrh', 'Spiced Amber'],
-            base: ['Aged Oud', 'Ambergris', 'Royal Musk']
-        }
     }
 ];
 
@@ -127,7 +109,7 @@ try {
 function saveCart() {
     try {
         localStorage.setItem('sultan_cart', JSON.stringify(cart));
-    } catch (e) {}
+    } catch (e) { }
     updateCartUI();
 }
 
@@ -355,16 +337,16 @@ function handleCheckoutSubmit(e) {
     const total = getCartTotal();
 
     let itemsText = cart.map(i => `- ${i.name} (x${i.quantity}) : RS ${(i.price * i.quantity).toLocaleString()}`).join('%0A');
-    
+
     let msg = `*NEW ORDER FROM SULTAN WEBSITE*%0A%0A` +
-              `*Order ID:* ${orderNum}%0A` +
-              `*Customer:* ${encodeURIComponent(name)}%0A` +
-              `*Phone:* ${encodeURIComponent(phone)}%0A` +
-              `*Address:* ${encodeURIComponent(address)}, ${encodeURIComponent(city)}%0A%0A` +
-              `*Items:*%0A${itemsText}%0A%0A` +
-              `*Subtotal:* RS ${subtotal.toLocaleString()}%0A` +
-              `*Delivery Charges:* RS ${DELIVERY_CHARGE}%0A` +
-              `*Grand Total:* RS ${total.toLocaleString()}`;
+        `*Order ID:* ${orderNum}%0A` +
+        `*Customer:* ${encodeURIComponent(name)}%0A` +
+        `*Phone:* ${encodeURIComponent(phone)}%0A` +
+        `*Address:* ${encodeURIComponent(address)}, ${encodeURIComponent(city)}%0A%0A` +
+        `*Items:*%0A${itemsText}%0A%0A` +
+        `*Subtotal:* RS ${subtotal.toLocaleString()}%0A` +
+        `*Delivery Charges:* RS ${DELIVERY_CHARGE}%0A` +
+        `*Grand Total:* RS ${total.toLocaleString()}`;
 
     closeCheckoutModal();
 
