@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SULTAN | Luxury Fragrances & Attars</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@200;300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            background: #0a0a0a;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-dark {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #d4af37 0%, #f9e076 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 20% 50%, #580505 0%, #0f0f0f 50%, #000 100%);
+        }
+
+        .gold-gradient {
+            background: linear-gradient(135deg, #d4af37 0%, #f9e076 100%);
+        }
+
+        .btn-glow:hover {
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.08) rotate(2deg);
+        }
+
+        .product-card:hover .product-glow {
+            opacity: 1;
+        }
+
+        .nav-blur {
+            transition: all 0.4s ease;
+        }
+
+        .nav-blur.scrolled {
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body class="text-white antialiased">
+
+    <!-- Navigation (Req 8: Logo made bigger) -->
+    <nav id="navbar" class="nav-blur fixed w-full z-50 top-0 px-6 py-4 border-b border-white/5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="logo.jpeg" alt="SULTAN Logo"
+                    class="w-14 h-14 md:w-16 md:h-16 object-cover rounded-full border-2 border-[#d4af37]/40 group-hover:scale-105 transition-transform duration-300">
+                <h3 class="serif text-3xl font-light tracking-wider gradient-text">SULTAN</h3>
+            </a>
+            <div class="hidden md:flex items-center gap-8 text-sm tracking-widest">
+                <a href="#collection" class="hover:text-[#d4af37] transition-colors duration-300">COLLECTION</a>
+                <a href="category.html" class="hover:text-[#d4af37] transition-colors duration-300">CATEGORIES</a>
+                <a href="#about" class="hover:text-[#d4af37] transition-colors duration-300">STORY</a>
+                <a href="#return-policy" class="hover:text-[#d4af37] transition-colors duration-300">RETURN POLICY</a>
+                <a href="#contact" class="hover:text-[#d4af37] transition-colors duration-300">CONTACT</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <!-- Cart Icon Button -->
+                <button onclick="openCartDrawer()"
+                    class="relative glass p-3 rounded-full hover:bg-[#d4af37]/20 transition-colors">
+                    <i data-lucide="shopping-bag" class="w-5 h-5 text-[#d4af37]"></i>
+                    <span
+                        class="cart-badge hidden absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#0a0a0a]">0</span>
+                </button>
+
+                <a href="#collection"
+                    class="hidden sm:inline-block gold-gradient text-black px-6 py-2.5 rounded-full text-xs font-semibold btn-glow transition-all duration-300">
+                    SHOP NOW
+                </a>
+                <button id="menuBtn" class="md:hidden glass p-2.5 rounded-full">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden glass-dark mt-4 rounded-2xl p-6 space-y-4">
+            <a href="#collection" class="block py-2 hover:text-[#d4af37] transition-colors">COLLECTION</a>
+            <a href="category.html" class="block py-2 hover:text-[#d4af37] transition-colors">CATEGORIES</a>
+            <a href="#about" class="block py-2 hover:text-[#d4af37] transition-colors">STORY</a>
+            <a href="#return-policy" class="block py-2 hover:text-[#d4af37] transition-colors">RETURN POLICY</a>
+            <a href="#contact" class="block py-2 hover:text-[#d4af37] transition-colors">CONTACT</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen hero-gradient overflow-hidden flex items-center pt-20">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="mist absolute top-1/4 -left-20 w-96 h-96 bg-red-500/20 rounded-full blur-3xl"></div>
+            <div class="mist absolute bottom-1/4 -right-20 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl"></div>
+            <div class="absolute top-0 left-0 w-full h-full opacity-30"
+                style="background-image: radial-gradient(circle at 2px 2px, rgba(212,175,55,0.15) 1px, transparent 0); background-size: 40px 40px;">
+            </div>
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-6 py-24 grid lg:grid-cols-2 gap-12 items-center w-full">
+            <!-- Left Content -->
+            <div class="space-y-8 z-10">
+                <div
+                    class="glass inline-block px-5 py-2 rounded-full text-xs tracking-[0.3em] text-[#d4af37] font-light uppercase">
+                    EXCLUSIVE LUXURY COLLECTION 2024
+                </div>
+                <h1 class="serif text-5xl sm:text-6xl md:text-8xl font-light leading-[1.1]">
+                    Essence of<br>
+                    <span class="gradient-text font-normal">Eternity</span>
+                </h1>
+                <p class="text-gray-400 text-base md:text-lg font-light max-w-md leading-relaxed">
+                    A timeless fragrance that captures the essence of luxury. Experience Golden Musk, Ameer Al Oud,
+                    Gucci Flora, Hugo Boss, and Sabaya at flat RS 2,200.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="#collection"
+                        class="gold-gradient text-black px-9 py-4 rounded-full font-medium btn-glow transition-all duration-300 flex items-center gap-2 text-sm">
+                        DISCOVER COLLECTION
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                    <a href="category.html"
+                        class="glass px-9 py-4 rounded-full font-light hover:bg-white/10 transition-all duration-300 text-sm">
+                        EXPLORE CATEGORIES
+                    </a>
+                </div>
+                <div class="flex items-center gap-8 pt-6 border-t border-white/10">
+                    <div>
+                        <div class="text-3xl serif font-light gradient-text">RS 2,200</div>
+                        <div class="text-[11px] text-gray-500 tracking-widest mt-1 uppercase">FLAT PRICE</div>
+                    </div>
+                    <div class="w-px h-10 bg-white/10"></div>
+                    <div>
+                        <div class="text-3xl serif font-light gradient-text">RS 150</div>
+                        <div class="text-[11px] text-gray-500 tracking-widest mt-1 uppercase">DELIVERY CHARGE</div>
+                    </div>
+                    <div class="w-px h-10 bg-white/10"></div>
+                    <div>
+                        <div class="text-3xl serif font-light gradient-text">100%</div>
+                        <div class="text-[11px] text-gray-500 tracking-widest mt-1 uppercase">ORIGINAL</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Content - Perfume Hero Image -->
+            <div class="relative flex items-center justify-center lg:justify-end">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#d4af37]/30 to-transparent blur-3xl scale-125">
+                    </div>
+                    <img src="main.png" alt="SULTAN Perfume Bottle"
+                        class="relative w-72 md:w-[420px] h-auto object-contain drop-shadow-2xl rounded-3xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section (Req 2: Attar changed to Unisex; Req 5: Separate page when opening categories) -->
+    <section id="categories" class="relative py-28 px-6 bg-[#0a0a0a]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-[#d4af37] text-xs tracking-[0.3em] mb-3 font-light uppercase">CURATED SELECTION</p>
+                <h2 class="serif text-5xl md:text-6xl font-light">
+                    Shop by <span class="gradient-text">Category</span>
+                </h2>
+                <p class="text-gray-400 text-sm max-w-md mx-auto mt-2 font-light">
+                    Click any category to open dedicated fragrance collections.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Men Category Card -->
+                <a href="category.html?cat=male"
+                    class="group relative h-[480px] overflow-hidden rounded-3xl cursor-pointer border border-white/10 hover:border-[#d4af37]/50 transition-all">
+                    <img src="men.jpeg" alt="Men's Collection"
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8 right-8">
+                        <span
+                            class="glass px-3 py-1 rounded-full text-[10px] text-[#d4af37] font-semibold mb-2 inline-block">2
+                            PRODUCTS</span>
+                        <h3 class="serif text-4xl mb-1 text-white">Men</h3>
+                        <p class="text-gray-400 text-xs tracking-widest mb-4 font-light">HUGO BOSS & AMEER AL OUD</p>
+                        <span
+                            class="inline-flex items-center gap-2 border-b border-[#d4af37] pb-1 text-[#d4af37] text-xs tracking-widest group-hover:pr-3 transition-all">
+                            OPEN CATEGORY PAGE →
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Women Category Card -->
+                <a href="category.html?cat=female"
+                    class="group relative h-[480px] overflow-hidden rounded-3xl cursor-pointer border border-white/10 hover:border-[#d4af37]/50 transition-all">
+                    <img src="women.jpeg" alt="Women's Collection"
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8 right-8">
+                        <span
+                            class="glass px-3 py-1 rounded-full text-[10px] text-[#d4af37] font-semibold mb-2 inline-block">2
+                            PRODUCTS</span>
+                        <h3 class="serif text-4xl mb-1 text-white">Women</h3>
+                        <p class="text-gray-400 text-xs tracking-widest mb-4 font-light">SABAYA & GUCCI FLORA</p>
+                        <span
+                            class="inline-flex items-center gap-2 border-b border-[#d4af37] pb-1 text-[#d4af37] text-xs tracking-widest group-hover:pr-3 transition-all">
+                            OPEN CATEGORY PAGE →
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Unisex Category Card (Req 2 & 4: Changed from Attar to Unisex) -->
+                <a href="category.html?cat=unisex"
+                    class="group relative h-[480px] overflow-hidden rounded-3xl cursor-pointer border border-white/10 hover:border-[#d4af37]/50 transition-all">
+                    <img src="attar.jpeg" alt="Unisex Collection"
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8 right-8">
+                        <span
+                            class="glass px-3 py-1 rounded-full text-[10px] text-[#d4af37] font-semibold mb-2 inline-block">2
+                            PRODUCTS</span>
+                        <h3 class="serif text-4xl mb-1 text-white">Unisex</h3>
+                        <p class="text-gray-400 text-xs tracking-widest mb-4 font-light">GOLDEN MUSK & ATTAR SULTAN</p>
+                        <span
+                            class="inline-flex items-center gap-2 border-b border-[#d4af37] pb-1 text-[#d4af37] text-xs tracking-widest group-hover:pr-3 transition-all">
+                            OPEN CATEGORY PAGE →
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Signature Series Collection Showcase (Req 1, 4, 6, 9, 10, 11) -->
+    <section id="collection" class="relative py-28 px-6 bg-gradient-to-b from-[#0a0a0a] via-[#120909] to-[#0a0a0a]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-[#d4af37] text-xs tracking-[0.3em] mb-3 font-light uppercase">CURATED SIGNATURE SERIES
+                </p>
+                <h2 class="serif text-5xl md:text-7xl font-light mb-4">
+                    The <span class="gradient-text">Signature</span> Series
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto text-sm font-light leading-relaxed">
+                    Explore all fragrances handcrafted with rare essences. All fragrances are available at a uniform
+                    price of <span class="text-[#d4af37] font-medium">RS 2,200</span> with <span
+                        class="text-[#d4af37] font-medium">RS 150</span> delivery nationwide.
+                </p>
+
+                <!-- Filter Tabs for Signature Series (Req 6) -->
+                <div class="flex flex-wrap justify-center gap-3 mt-10">
+                    <button onclick="filterHomeCollection('all')" id="home-tab-all"
+                        class="home-cat-tab px-6 py-2.5 rounded-full text-xs font-semibold transition-all gold-gradient text-black btn-glow">
+                        ALL SIGNATURES
+                    </button>
+                    <button onclick="filterHomeCollection('male')" id="home-tab-male"
+                        class="home-cat-tab px-6 py-2.5 rounded-full text-xs font-light glass text-white hover:border-[#d4af37]">
+                        MALE (2)
+                    </button>
+                    <button onclick="filterHomeCollection('female')" id="home-tab-female"
+                        class="home-cat-tab px-6 py-2.5 rounded-full text-xs font-light glass text-white hover:border-[#d4af37]">
+                        FEMALE (2)
+                    </button>
+                    <button onclick="filterHomeCollection('unisex')" id="home-tab-unisex"
+                        class="home-cat-tab px-6 py-2.5 rounded-full text-xs font-light glass text-white hover:border-[#d4af37]">
+                        UNISEX (2)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Collection Grid -->
+            <div id="homeCollectionGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Products injected by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Heritage / Story Section -->
+    <section id="about" class="relative py-28 px-6 bg-[#0a0a0a] border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-6">
+                    <p class="text-[#d4af37] text-xs tracking-[0.3em] font-light uppercase">OUR BRAND LEGACY</p>
+                    <h2 class="serif text-4xl md:text-6xl font-light leading-tight">
+                        Crafted for<br>
+                        <span class="gradient-text">Royalty & Distinction</span>
+                    </h2>
+                    <p class="text-gray-400 font-light text-sm leading-relaxed">
+                        At SULTAN, every perfume bottle represents a fusion of traditional oriental craftsmanship and
+                        modern perfumery arts. We source pure essential oils and aged oud wood to create lasting
+                        fragrances.
+                    </p>
+                    <div class="grid grid-cols-3 gap-6 pt-6 border-t border-white/10 text-center">
+                        <div class="glass p-4 rounded-2xl">
+                            <div class="text-2xl serif font-semibold gradient-text mb-1">100%</div>
+                            <div class="text-[10px] text-gray-400 tracking-wider uppercase">PURE OILS</div>
+                        </div>
+                        <div class="glass p-4 rounded-2xl">
+                            <div class="text-2xl serif font-semibold gradient-text mb-1">12H+</div>
+                            <div class="text-[10px] text-gray-400 tracking-wider uppercase">LASTING SILLAGE</div>
+                        </div>
+                        <div class="glass p-4 rounded-2xl">
+                            <div class="text-2xl serif font-semibold gradient-text mb-1">RS 150</div>
+                            <div class="text-[10px] text-gray-400 tracking-wider uppercase">DELIVERY CHARGE</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="glass-dark rounded-3xl p-4 border border-white/10 relative overflow-hidden">
+                        <img src="main.png" alt="Perfume Making"
+                            class="w-full h-[450px] object-cover rounded-2xl opacity-90">
+                        <div
+                            class="absolute inset-4 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-2xl">
+                        </div>
+                        <div class="absolute bottom-8 left-8 right-8 glass p-5 rounded-2xl border border-white/10">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="award" class="w-5 h-5 text-[#d4af37]"></i>
+                                <span class="text-sm font-medium text-white">Authentic Concentrated Formulations</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-1">Guaranteed satisfaction with every bottle delivered.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Return Policy Section (Req 12: Add return policy section above contact section) -->
+    <section id="return-policy"
+        class="py-24 px-6 bg-gradient-to-b from-[#0a0a0a] via-[#140f0a] to-[#0a0a0a] border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-[#d4af37] text-xs tracking-[0.3em] font-light uppercase">SHOP WITH CONFIDENCE</span>
+                <h2 class="serif text-4xl md:text-6xl font-light mt-2">
+                    7-Day Return & <span class="gradient-text">Exchange Policy</span>
+                </h2>
+                <p class="text-gray-400 text-sm max-w-xl mx-auto mt-3 font-light">
+                    We take utmost pride in our quality. If you encounter any issue, we ensure a seamless return
+                    process.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Policy Card 1 -->
+                <div
+                    class="glass-dark p-8 rounded-3xl border border-white/10 space-y-4 hover:border-[#d4af37]/40 transition-all">
+                    <div class="w-14 h-14 rounded-2xl gold-gradient flex items-center justify-center text-black">
+                        <i data-lucide="rotate-ccw" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="serif text-2xl font-light text-white">7-Day Guarantee</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed font-light">
+                        Items damaged, broken in transit, or incorrect can be returned or exchanged within 7 days of
+                        order receipt.
+                    </p>
+                </div>
+
+                <!-- Policy Card 2 -->
+                <div
+                    class="glass-dark p-8 rounded-3xl border border-white/10 space-y-4 hover:border-[#d4af37]/40 transition-all">
+                    <div class="w-14 h-14 rounded-2xl gold-gradient flex items-center justify-center text-black">
+                        <i data-lucide="shield-check" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="serif text-2xl font-light text-white">Condition Requirements</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed font-light">
+                        The item must remain in its original box packaging with seal intact for voluntary returns.
+                    </p>
+                </div>
+
+                <!-- Policy Card 3 -->
+                <div
+                    class="glass-dark p-8 rounded-3xl border border-white/10 space-y-4 hover:border-[#d4af37]/40 transition-all">
+                    <div class="w-14 h-14 rounded-2xl gold-gradient flex items-center justify-center text-black">
+                        <i data-lucide="headphones" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="serif text-2xl font-light text-white">Instant Support</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed font-light">
+                        Contact our dedicated support team directly via email or WhatsApp for immediate return
+                        assistance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section (Req 3: Add email sultanekhushbu77@gmail.com and phone 03173961760) -->
+    <section id="contact" class="py-24 px-6 bg-[#070707] border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="glass-dark rounded-3xl p-10 md:p-16 border border-[#d4af37]/20 relative overflow-hidden">
+                <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-[#d4af37]/10 rounded-full blur-3xl"></div>
+
+                <div class="grid lg:grid-cols-2 gap-12 items-center relative z-10">
+                    <div class="space-y-6">
+                        <span class="text-[#d4af37] text-xs tracking-[0.3em] font-light uppercase">GET IN TOUCH</span>
+                        <h2 class="serif text-4xl md:text-6xl font-light">
+                            Contact <span class="gradient-text">SULTAN</span>
+                        </h2>
+                        <p class="text-gray-400 text-sm leading-relaxed font-light">
+                            Our team is available 24/7 to assist with fragrance recommendations, custom orders, or
+                            shipping tracking.
+                        </p>
+
+                        <div class="space-y-4 pt-2">
+                            <!-- Email (Req 3) -->
+                            <a href="mailto:sultanekhushbu77@gmail.com"
+                                class="flex items-center gap-4 glass p-4 rounded-2xl hover:border-[#d4af37] transition-all group">
+                                <div
+                                    class="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center text-black">
+                                    <i data-lucide="mail" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-400 font-light">EMAIL ADDRESS</div>
+                                    <div class="text-white font-medium group-hover:text-[#d4af37] transition-colors">
+                                        sultanekhushbu77@gmail.com</div>
+                                </div>
+                            </a>
+
+                            <!-- Phone / WhatsApp (Req 3) -->
+                            <a href="https://wa.me/923173961760" target="_blank"
+                                class="flex items-center gap-4 glass p-4 rounded-2xl hover:border-[#d4af37] transition-all group">
+                                <div
+                                    class="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center text-black">
+                                    <i data-lucide="phone" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-400 font-light">WHATSAPP & PHONE</div>
+                                    <div class="text-white font-medium group-hover:text-[#d4af37] transition-colors">
+                                        03173961760</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="glass p-8 rounded-3xl border border-white/10 space-y-4">
+                        <h3 class="serif text-2xl font-light text-[#d4af37]">Quick WhatsApp Inquiry</h3>
+                        <p class="text-gray-400 text-xs font-light leading-relaxed">
+                            Prefer ordering directly on WhatsApp? Click below to start chatting with our customer care
+                            representative.
+                        </p>
+                        <a href="https://wa.me/923173961760?text=Hello%20SULTAN,%20I%20would%20like%20to%20place%20an%20order."
+                            target="_blank"
+                            class="inline-flex items-center justify-center gap-3 gold-gradient text-black w-full py-4 rounded-full font-medium btn-glow transition-all text-sm">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                            ORDER VIA WHATSAPP (03173961760)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#050505] border-t border-white/5 py-16 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <img src="logo.jpeg" alt="SULTAN Logo"
+                            class="w-12 h-12 object-cover rounded-full border border-[#d4af37]/30">
+                        <h3 class="serif text-3xl font-light tracking-wider gradient-text">SULTAN</h3>
+                    </div>
+                    <p class="text-gray-500 text-xs font-light leading-relaxed">
+                        Defining luxury fragrance. All perfumes listed at flat RS 2,200 with nationwide delivery of RS
+                        150.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-xs tracking-widest mb-4 text-[#d4af37] font-semibold">CATEGORIES</h4>
+                    <ul class="space-y-2 text-xs text-gray-400 font-light">
+                        <li><a href="category.html?cat=male" class="hover:text-white transition-colors">Male
+                                Fragrances</a></li>
+                        <li><a href="category.html?cat=female" class="hover:text-white transition-colors">Female
+                                Fragrances</a></li>
+                        <li><a href="category.html?cat=unisex" class="hover:text-white transition-colors">Unisex
+                                Fragrances & Attars</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs tracking-widest mb-4 text-[#d4af37] font-semibold">NAVIGATION</h4>
+                    <ul class="space-y-2 text-xs text-gray-400 font-light">
+                        <li><a href="#collection" class="hover:text-white transition-colors">Signature Series</a></li>
+                        <li><a href="#about" class="hover:text-white transition-colors">Brand Heritage</a></li>
+                        <li><a href="#return-policy" class="hover:text-white transition-colors">Return Policy</a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors">Contact Support</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs tracking-widest mb-4 text-[#d4af37] font-semibold">CONTACT US</h4>
+                    <ul class="space-y-2 text-xs text-gray-400 font-light">
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="mail" class="w-3.5 h-3.5 text-[#d4af37]"></i>
+                            <a href="mailto:sultanekhushbu77@gmail.com"
+                                class="hover:text-white">sultanekhushbu77@gmail.com</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="phone" class="w-3.5 h-3.5 text-[#d4af37]"></i>
+                            <a href="tel:03173961760" class="hover:text-white">03173961760</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-600 font-light">
+                <p>© 2024 SULTAN Luxury Fragrances. All rights reserved.</p>
+                <div class="flex gap-6 text-gray-400">
+                    <a href="#return-policy" class="hover:text-white">Return Policy</a>
+                    <a href="#contact" class="hover:text-white">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART DRAWER OVERLAY -->
+    <div id="cartOverlay" onclick="closeCartDrawer()"
+        class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 transition-opacity duration-300 opacity-0"></div>
+
+    <!-- CART DRAWER -->
+    <div id="cartDrawer"
+        class="fixed top-0 right-0 h-full w-full max-w-md bg-[#0d0d0d] border-l border-white/10 z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+        <div class="p-6 border-b border-white/10 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <i data-lucide="shopping-bag" class="w-6 h-6 text-[#d4af37]"></i>
+                <h3 class="serif text-2xl font-light text-white">Your Shopping Cart</h3>
+            </div>
+            <button onclick="closeCartDrawer()" class="text-gray-400 hover:text-white p-2">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <div id="cartDrawerItems" class="flex-1 overflow-y-auto p-6 space-y-4">
+            <!-- Injected by JS -->
+        </div>
+
+        <div class="p-6 border-t border-white/10 bg-white/5 space-y-3">
+            <div class="flex justify-between text-sm text-gray-400">
+                <span>Subtotal</span>
+                <span id="cartSubtotal" class="text-white font-medium">RS 0</span>
+            </div>
+            <div class="flex justify-between text-sm text-gray-400">
+                <span>Delivery Charges</span>
+                <span id="cartDelivery" class="text-white font-medium">RS 150</span>
+            </div>
+            <div class="flex justify-between text-lg font-medium text-white pt-2 border-t border-white/10">
+                <span>Total Amount</span>
+                <span id="cartTotal" class="text-[#d4af37]">RS 0</span>
+            </div>
+            <button onclick="openCheckoutModal()"
+                class="gold-gradient text-black w-full py-4 rounded-full font-medium btn-glow transition-all mt-4 flex items-center justify-center gap-2 text-sm tracking-wider">
+                PROCEED TO CHECKOUT
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div id="checkoutModal"
+        class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-50 items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-[#0f0f0f] border border-[#d4af37]/30 rounded-3xl max-w-lg w-full p-8 shadow-2xl relative my-8">
+            <button onclick="closeCheckoutModal()" class="absolute top-6 right-6 text-gray-400 hover:text-white">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <h3 class="serif text-3xl font-light text-white mb-2">Checkout Details</h3>
+            <p class="text-xs text-gray-400 font-light mb-6">Complete your shipping address to confirm your order.</p>
+
+            <form onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Full Name *</label>
+                    <input type="text" id="custName" required placeholder="John Doe"
+                        class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#d4af37]">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Phone Number *</label>
+                        <input type="tel" id="custPhone" required placeholder="03173961760"
+                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#d4af37]">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">City *</label>
+                        <input type="text" id="custCity" required placeholder="Lahore / Karachi"
+                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#d4af37]">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Shipping Address *</label>
+                    <textarea id="custAddress" required rows="2" placeholder="House #, Street, Area"
+                        class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#d4af37]"></textarea>
+                </div>
+
+                <div class="p-4 bg-white/5 rounded-2xl border border-white/10 space-y-2 text-xs">
+                    <div class="text-gray-400 font-medium border-b border-white/10 pb-2 mb-2">Order Summary</div>
+                    <div id="checkoutSummaryItems" class="space-y-1 max-h-32 overflow-y-auto"></div>
+                    <div class="flex justify-between pt-2 text-gray-400">
+                        <span>Subtotal:</span>
+                        <span id="checkoutSubtotal" class="text-white">RS 0</span>
+                    </div>
+                    <div class="flex justify-between text-gray-400">
+                        <span>Delivery Charges:</span>
+                        <span id="checkoutDelivery" class="text-white">RS 150</span>
+                    </div>
+                    <div class="flex justify-between text-sm font-semibold text-white pt-2 border-t border-white/10">
+                        <span>Total:</span>
+                        <span id="checkoutTotal" class="text-[#d4af37]">RS 0</span>
+                    </div>
+                </div>
+
+                <div class="text-xs text-gray-400 flex items-center gap-2">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-[#d4af37]"></i>
+                    Payment Method: Cash on Delivery (COD)
+                </div>
+
+                <button type="submit"
+                    class="gold-gradient text-black w-full py-4 rounded-full font-medium btn-glow transition-all text-sm tracking-wider">
+                    CONFIRM & PLACE ORDER
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ORDER SUCCESS MODAL -->
+    <div id="orderSuccessModal"
+        class="hidden fixed inset-0 bg-black/90 backdrop-blur-md z-50 items-center justify-center p-4">
+        <div
+            class="bg-[#0f0f0f] border border-[#d4af37]/40 rounded-3xl max-w-md w-full p-8 text-center space-y-6 shadow-2xl">
+            <div class="w-20 h-20 rounded-full gold-gradient flex items-center justify-center mx-auto text-black">
+                <i data-lucide="check-circle" class="w-10 h-10"></i>
+            </div>
+
+            <div class="space-y-2">
+                <h3 class="serif text-3xl font-light text-white">Order Received!</h3>
+                <p class="text-xs text-gray-400 font-light">Thank you for choosing SULTAN Luxury Fragrances.</p>
+                <div
+                    class="text-sm font-mono text-[#d4af37] bg-white/5 py-2 px-4 rounded-xl border border-white/10 inline-block mt-2">
+                    Order ID: <span id="successOrderId">SLT-1001</span>
+                </div>
+            </div>
+
+            <p class="text-xs text-gray-300 font-light leading-relaxed">
+                Click below to send your order confirmation directly via WhatsApp to our team for quick processing!
+            </p>
+
+            <div class="space-y-3 pt-2">
+                <a id="whatsappOrderBtn" href="#" target="_blank"
+                    class="gold-gradient text-black w-full py-3.5 rounded-full font-medium btn-glow transition-all flex items-center justify-center gap-2 text-sm">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    Send Order on WhatsApp
+                </a>
+                <button onclick="closeSuccessModal()"
+                    class="glass text-gray-400 hover:text-white w-full py-3 rounded-full text-xs">
+                    Close Window
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="products.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            renderHomeCollection('all');
+        });
+
+        function filterHomeCollection(cat) {
+            document.querySelectorAll('.home-cat-tab').forEach(tab => {
+                tab.className = 'home-cat-tab px-6 py-2.5 rounded-full text-xs font-light glass text-white hover:border-[#d4af37]';
+            });
+
+            const activeTab = document.getElementById(`home-tab-${cat}`);
+            if (activeTab) {
+                activeTab.className = 'home-cat-tab px-6 py-2.5 rounded-full text-xs font-semibold transition-all gold-gradient text-black btn-glow';
+            }
+
+            renderHomeCollection(cat);
+        }
+
+        function renderHomeCollection(cat) {
+            const grid = document.getElementById('homeCollectionGrid');
+            if (!grid) return;
+
+            const filtered = cat === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === cat);
+
+            grid.innerHTML = filtered.map(product => `
+                <div class="product-card glass-dark rounded-3xl p-6 group relative overflow-hidden border border-white/10 transition-all hover:border-[#d4af37]/50 flex flex-col justify-between">
+                    <div>
+                        <div class="relative aspect-square bg-gradient-to-br from-black to-neutral-900 rounded-2xl mb-6 flex items-center justify-center overflow-hidden border border-white/5">
+                            <img src="${product.image}" alt="${product.name}" class="product-img w-full h-full object-cover transition-all duration-700">
+                            <span class="absolute top-3 left-3 glass px-3 py-1 rounded-full text-[10px] text-[#d4af37] font-semibold tracking-wider uppercase">${product.tag}</span>
+                            <span class="absolute top-3 right-3 glass px-3 py-1 rounded-full text-[10px] text-gray-300 font-light uppercase">${product.categoryName}</span>
+                        </div>
+
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <h3 class="serif text-2xl font-light text-white">${product.name}</h3>
+                                <span class="text-[#d4af37] font-semibold text-lg">RS ${product.price.toLocaleString()}</span>
+                            </div>
+                            <p class="text-gray-400 text-xs font-light line-clamp-2 leading-relaxed">${product.description}</p>
+                            
+                            <div class="flex items-center gap-1 pt-2">
+                                <div class="flex text-[#d4af37]">
+                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-[#d4af37]"></i>
+                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-[#d4af37]"></i>
+                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-[#d4af37]"></i>
+                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-[#d4af37]"></i>
+                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-[#d4af37]"></i>
+                                </div>
+                                <span class="text-[11px] text-gray-500 ml-1">(${product.rating})</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 pt-6 mt-4 border-t border-white/5">
+                        <a href="product.html?id=${product.id}" class="block w-full text-center glass py-2.5 rounded-full text-xs font-light hover:bg-white/10 transition-colors">
+                            VIEW NOTES & DETAILS
+                        </a>
+                        <button onclick="addToCart('${product.id}')" class="w-full gold-gradient text-black py-3 rounded-full text-xs font-semibold btn-glow transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                            ADD TO CART
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+
+</html>
